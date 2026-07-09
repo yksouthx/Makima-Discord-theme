@@ -3,140 +3,160 @@
 /**
  * @name Makima Dominance Theme
  * @author yksouthx
- * @version 1.4
+ * @version 1.5
+ * @description A high-performance glassmorphism theme inspired by Makima.
  */
 
 :root {
-  /* Fixed URL: Using the correct repository name and user */
+  /* Background & Wallpaper */
   --bg: url('https://raw.githubusercontent.com/yksouthx/Makima-Discord-theme/main/wallpaper.jpg');
-  --bg-fallback: linear-gradient(155deg, #14060b 0%, #1a080f 50%, #0a0306 100%);
+  --bg-fallback: #0c0407;
 
-  --glass: rgba(20, 6, 10, 0.4);
-  --glass-dark: rgba(12, 4, 7, 0.7);
-
-  --red-hover: rgba(210, 35, 35, 0.6);
-  --red-soft: rgba(210, 35, 35, 0.25);
-
-  --blur-main: 10px;
-  --blur-soft: 4px;
-  --radius: 14px;
+  /* Colors - Makima Palette */
+  --glass: rgba(18, 6, 10, 0.55);
+  --glass-dark: rgba(12, 4, 7, 0.82);
+  --accent-red: rgba(210, 35, 35, 1);
+  --accent-red-soft: rgba(210, 35, 35, 0.25);
+  --accent-red-hover: rgba(210, 35, 35, 0.45);
+  
+  /* Effects */
+  --blur-main: 12px;
+  --blur-soft: 6px;
+  --radius: 12px;
+  --text-normal: #dcddde;
+  --text-muted: #72767d;
 }
 
-/* Base transparency */
-html,
-body,
-#app-mount,
-[class*="app-"],
-[class^="app-"],
-[class*="appMount-"],
-[class*="layers-"],
-[class^="layers-"],
-[class*="layer-"] {
+/* ===================== CORE TRANSPARENCY ===================== */
+/* This section strips Discord's default backgrounds to reveal the wallpaper */
+
+html, body, #app-mount,
+[class*="app-"], [class^="app-"],
+[class*="bg-"], [class^="bg-"],
+[class*="layer-"], [class^="layer-"],
+[class*="layers-"], [class^="layers-"],
+[class*="container-"], [class^="container-"],
+[class*="main-"], [class^="main-"],
+[class*="chat-"], [class^="chat-"],
+[class*="content-"], [class^="content-"],
+[class*="pageWrapper-"],
+[class*="base-"],
+[class*="sidebar-"],
+[class*="guilds-"],
+[class*="panels-"],
+[class*="container__"],
+[class*="scroller__"],
+[class*="standardSidebarView-"] {
   background: transparent !important;
 }
 
+/* The actual background container */
 #app-mount {
-  background-image: var(--bg), var(--bg-fallback) !important;
+  background-image: var(--bg) !important;
   background-size: cover !important;
   background-position: center !important;
   background-repeat: no-repeat !important;
   background-attachment: fixed !important;
+  background-color: var(--bg-fallback) !important;
 }
 
-/* Main app dark overlay */
-.app_bd26cc {
-  background: rgba(0, 0, 0, 0.2) !important;
+/* Global dark overlay to make text readable */
+[class*="app-"]::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.25);
+  z-index: -1;
+  pointer-events: none;
 }
 
-/* Remove default backgrounds */
-[class*="bg-"],
-[class^="bg-"],
-[class*="theme-dark"],
-[class*="theme-"],
-[class*="container__"],
-[class*="container-"],
-[class^="container-"] {
-  background-color: transparent !important;
-}
+/* ===================== LAYOUT BLUR & GLASS ===================== */
 
-/* Sidebar and Popouts - Primary Blur */
-[class*="privateChannels"],
-[class^="privateChannels-"],
-[class*="sidebar"],
+/* Sidebar & Guilds */
+[class*="guilds-"], 
 [class*="sidebar-"],
-.sidebar_ded4b2,
-[class*="userPopout"],
-[class*="user-popout"],
-[class*="topSection"],
-[class*="root_"],
-[class^="root-"] {
+[class*="privateChannels-"] {
   background: var(--glass-dark) !important;
-  backdrop-filter: blur(var(--blur-main)) saturate(110%) !important;
-  -webkit-backdrop-filter: blur(var(--blur-main)) saturate(110%) !important;
-  border-radius: var(--radius);
-}
-
-/* Channel and Interactive items - Removed redundant blur to fix visual stacking */
-[class*="wrapper__"],
-[class*="wrapper-"],
-[class*="containerDefault__"],
-[class*="container-default"],
-[class*="interactive__"],
-[class*="interactive-"],
-[class*="channel-"] {
-  background: var(--glass) !important;
-  border-radius: 10px;
-  transition: background-color 0.2s ease, box-shadow 0.2s ease;
-  margin-bottom: 2px;
-}
-
-[class*="selected"] [class*="wrapper__"],
-[class*="interactive__"]:hover {
-  background: var(--red-soft) !important;
-  box-shadow: 0 0 10px rgba(210, 35, 35, 0.2);
-}
-
-/* Chat and Members - Subtle Blur */
-[class*="chat-"],
-[class*="chatroom-"],
-[class*="messagesWrapper"],
-[class*="messages-"],
-[class*="members-"],
-[class*="member-"],
-[class*="membersWrap"] {
-  background: var(--glass-dark) !important;
-  backdrop-filter: blur(var(--blur-soft)) !important;
-  -webkit-backdrop-filter: blur(var(--blur-soft)) !important;
-}
-
-/* Text Area */
-[class*="channelTextArea"],
-[class*="channel-textarea"],
-[class*="textArea-"],
-[class*="form-"],
-[class*="form__"] {
-  background: var(--glass) !important;
   backdrop-filter: blur(var(--blur-main)) !important;
   -webkit-backdrop-filter: blur(var(--blur-main)) !important;
+  margin: 8px 0 8px 8px;
   border-radius: var(--radius);
-  margin-top: 0;
 }
 
-/* Modals and Popouts - Fixed selector to target content instead of container */
-[class*="modal_"],
-[class*="modal-"],
-[class*="popout_"],
-[class*="popout-"],
-[class*="menu_"],
-[class*="menu-"] {
-  background: rgba(18, 6, 10, 0.85) !important;
-  backdrop-filter: blur(12px) !important;
-  -webkit-backdrop-filter: blur(12px) !important;
+/* Main Chat Area */
+[class*="chatContent-"],
+[class*="messagesWrapper-"] {
+  background: var(--glass) !important;
+  backdrop-filter: blur(var(--blur-soft)) !important;
+  -webkit-backdrop-filter: blur(var(--blur-soft)) !important;
+  margin: 8px;
   border-radius: var(--radius);
-  border: 1px solid rgba(210, 35, 35, 0.1);
+}
+
+/* Members List */
+[class*="members-"],
+[class*="membersWrap-"] {
+  background: var(--glass-dark) !important;
+  backdrop-filter: blur(var(--blur-main)) !important;
+  -webkit-backdrop-filter: blur(var(--blur-main)) !important;
+  margin: 8px 8px 8px 0;
+  border-radius: var(--radius);
+}
+
+/* User Panels (Bottom Left) */
+[class*="panels-"] {
+  background: transparent !important;
+  border-top: 1px solid rgba(210, 35, 35, 0.1);
+}
+
+/* ===================== ELEMENTS & COLORS ===================== */
+
+/* Channel / Item Hover & Selection */
+[class*="interactive-"]:hover,
+[class*="selected-"] [class*="layout-"],
+[class*="modeSelected-"] [class*="link-"] {
+  background: var(--accent-red-soft) !important;
+  color: #fff !important;
+}
+
+/* Buttons & Accents */
+[class*="lookFilled-"][class*="colorBrand-"],
+[class*="button-"][class*="lookFilled-"][class*="colorBrand-"] {
+  background-color: var(--accent-red) !important;
+}
+
+/* Text Area (Chat Input) */
+[class*="channelTextArea-"] {
+  background: transparent !important;
+}
+[class*="scrollableContainer-"] {
+  background: var(--glass-dark) !important;
+  border: 1px solid rgba(210, 35, 35, 0.2);
+  border-radius: var(--radius);
+}
+
+/* Modals & Popouts */
+[class*="modal-"],
+[class*="root-"][class*="elevationHigh-"],
+[class*="menu-"][class*="styleFixed-"],
+[class*="userPopout-"] {
+  background: var(--glass-dark) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(210, 35, 35, 0.2) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5) !important;
 }
 
 /* Typography */
-body {
+body, span, div {
   font-family: 'Inter', sans-serif !important;
+}
+
+/* Scrollbars */
+::-webkit-scrollbar-thumb {
+  background-color: var(--accent-red-soft) !important;
+  border-radius: 10px !important;
+}
+::-webkit-scrollbar-track {
+  background-color: transparent !important;
 }
