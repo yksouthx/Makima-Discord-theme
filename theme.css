@@ -3,128 +3,135 @@
 /**
  * @name Makima Dominance Theme
  * @author yksouthx
- * @version 1.6
- * @description Forced transparency and aggressive glassmorphism for Makima theme.
+ * @version 1.7
+ * @description Fixed transparency using Akame Ga Kill structure.
  */
 
 :root {
-    --bg: url('https://raw.githubusercontent.com/yksouthx/Makima-Discord-theme/main/wallpaper.jpg');
-    --bg-fallback: #0c0407;
-    --glass: rgba(18, 6, 10, 0.5);
-    --glass-dark: rgba(12, 4, 7, 0.8);
-    --accent-red: rgba(210, 35, 35, 1);
-    --accent-red-soft: rgba(210, 35, 35, 0.2);
-    --blur-main: 12px;
-    --radius: 12px;
+  --bg: url('https://raw.githubusercontent.com/yksouthx/Makima-Discord-theme/main/wallpaper.jpg');
+  --glass: rgba(18, 6, 10, 0.6);
+  --glass-dark: rgba(12, 4, 7, 0.85);
+  --accent-red: #d22323;
+  --accent-red-soft: rgba(210, 35, 35, 0.2);
+  --blur-main: 12px;
 }
 
-/* ===================== AGGRESSIVE TRANSPARENCY ===================== */
+/* ===================== CORE STRUCTURE (From Example) ===================== */
 
-/* Force ALL potential background containers to be transparent */
+/* Main Background - Using the exact selector from Akame theme */
+.app_bd26cc, 
+.app__160d8 {
+    background-image: var(--bg) !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-attachment: fixed !important;
+}
+
+/* Base Transparency */
 #app-mount,
-#app-mount [class*="app-"],
-#app-mount [class*="bg-"],
-#app-mount [class*="layer-"],
-#app-mount [class*="layers-"],
-#app-mount [class*="container-"],
-#app-mount [class*="main-"],
-#app-mount [class*="chat-"],
-#app-mount [class*="content-"],
-#app-mount [class*="pageWrapper-"],
-#app-mount [class*="base-"],
-#app-mount [class*="sidebar-"],
-#app-mount [class*="guilds-"],
-#app-mount [class*="panels-"],
-#app-mount [class*="scroller-"],
-#app-mount [class*="standardSidebarView-"],
-#app-mount [class*="header-"],
-#app-mount [class*="topBar-"],
-#app-mount [class*="title-"],
-#app-mount [class*="searchBar-"],
-#app-mount [class*="threadSidebar-"] {
+.bg__160d8,
+.layer__160d8,
+.container_fb64c9,
+.main_bd26cc,
+.chat_bd26cc,
+.content_bd26cc,
+.pageWrapper_a3a4ce,
+.base_bd26cc,
+.sidebar_bd26cc,
+.guilds_bd26cc,
+.panels_bd26cc,
+.container__2637a,
+.chatContent_a7d3a1,
+.noChannel_bd26cc,
+.standardSidebarView_c25c6d,
+.contentRegion_c25c6d,
+.contentRegionScroller_c25c6d {
     background: transparent !important;
     background-color: transparent !important;
 }
 
-/* The only place where the background should live */
-#app-mount {
-    background-image: var(--bg) !important;
-    background-size: cover !important;
-    background-position: center !important;
-    background-repeat: no-repeat !important;
-    background-attachment: fixed !important;
-    background-color: var(--bg-fallback) !important;
+/* Shade Overlay */
+.layers_bd26cc,
+.layers__160d8 {
+    background-color: rgba(0, 0, 0, 0.3) !important;
 }
 
-/* ===================== LAYOUT GLASS EFFECTS ===================== */
+/* ===================== LAYOUT GLASS ===================== */
 
-/* Guilds List (Leftmost) */
-[class*="guilds-"] {
+/* Sidebar */
+.sidebar_bd26cc {
+    background: var(--glass-dark) !important;
+    backdrop-filter: blur(var(--blur-main)) !important;
+    margin: 10px 0 10px 10px;
+    border-radius: 12px 0 0 12px;
+}
+
+/* Chat Content */
+.chatContent_a7d3a1 {
+    background: var(--glass) !important;
+    backdrop-filter: blur(var(--blur-main)) !important;
+    margin: 10px 10px 10px 0;
+    border-radius: 0 12px 12px 0;
+}
+
+/* Guilds List */
+.guilds_bd26cc {
     background: rgba(0, 0, 0, 0.4) !important;
     backdrop-filter: blur(var(--blur-main)) !important;
 }
 
-/* Sidebar (Channels List) */
-[class*="sidebar-"] {
-    background: var(--glass-dark) !important;
-    backdrop-filter: blur(var(--blur-main)) !important;
-    border-radius: var(--radius) 0 0 var(--radius);
-    margin: 10px 0 10px 10px;
-}
-
-/* Chat Content & Messages */
-[class*="chatContent-"] {
-    background: var(--glass) !important;
-    backdrop-filter: blur(var(--blur-main)) !important;
-    border-radius: 0 var(--radius) var(--radius) 0;
-    margin: 10px 10px 10px 0;
-}
-
 /* Members List */
-[class*="members-"], [class*="membersWrap-"] {
+.members_c8ffbb,
+.membersWrap_c8ffbb {
     background: var(--glass-dark) !important;
     backdrop-filter: blur(var(--blur-main)) !important;
     margin: 10px;
-    border-radius: var(--radius);
+    border-radius: 12px;
 }
 
-/* Header / Title Bar */
-[class*="title-"] {
-    background: rgba(0, 0, 0, 0.3) !important;
+/* ===================== HEADER & INPUT ===================== */
+
+/* Title Bar */
+.title_a7d3a1,
+.header_fd6364 {
+    background: rgba(0, 0, 0, 0.2) !important;
     backdrop-filter: blur(10px) !important;
     border-bottom: 1px solid rgba(210, 35, 35, 0.1);
 }
 
-/* ===================== INTERACTIVE ELEMENTS ===================== */
+/* Chat Input Area */
+.channelTextArea_a7d3a1 {
+    background: transparent !important;
+}
+.scrollableContainer_d0696b {
+    background: rgba(0, 0, 0, 0.4) !important;
+    border: 1px solid rgba(210, 35, 35, 0.2);
+    border-radius: 12px;
+}
 
-/* Hover States */
-[class*="interactive-"]:hover,
-[class*="modeSelected-"] [class*="link-"] {
+/* ===================== ELEMENTS & ACCENTS ===================== */
+
+/* Hover & Selected States */
+.interactive_f5eb3b:hover,
+.modeSelected_d808b0 .link_d808b0 {
     background: var(--accent-red-soft) !important;
     box-shadow: inset 4px 0 0 var(--accent-red);
 }
 
-/* Chat Input Area */
-[class*="channelTextArea-"] {
-    background: transparent !important;
-}
-[class*="scrollableContainer-"] {
-    background: rgba(0, 0, 0, 0.4) !important;
-    border: 1px solid rgba(210, 35, 35, 0.2);
-    border-radius: var(--radius);
+/* Buttons */
+.lookFilled_dd4f85.colorBrand_dd4f85 {
+    background-color: var(--accent-red) !important;
 }
 
-/* User Profile Panel (Bottom Left) */
-[class*="panels-"] {
+/* User Profile Panel */
+.panels_bd26cc {
     background: rgba(0, 0, 0, 0.2) !important;
     border-top: 1px solid rgba(210, 35, 35, 0.1);
 }
 
-/* ===================== FIXES FOR SPECIFIC AREAS ===================== */
-
-/* Friends Tab / Nitro Tab / Shop */
-[class*="container-"][class*="themed-"] {
-    background: transparent !important;
+/* Typography */
+body, span, div {
+    font-family: 'Inter', sans-serif !important;
 }
 
 /* Scrollbars */
@@ -132,8 +139,6 @@
     background: var(--accent-red-soft) !important;
     border-radius: 20px;
 }
-
-/* Typography */
-body {
-    font-family: 'Inter', sans-serif !important;
+::-webkit-scrollbar-track {
+    background: transparent !important;
 }
