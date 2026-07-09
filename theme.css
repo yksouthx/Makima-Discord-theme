@@ -3,135 +3,142 @@
 /**
  * @name Makima Dominance Theme
  * @author yksouthx
- * @version 1.7
- * @description Fixed transparency using Akame Ga Kill structure.
+ * @version 2.0
+ * @description The Nuclear Transparency Update. Fixes wallpaper visibility for the 2026 Visual Refresh.
  */
 
 :root {
   --bg: url('https://raw.githubusercontent.com/yksouthx/Makima-Discord-theme/main/wallpaper.jpg');
-  --glass: rgba(18, 6, 10, 0.6);
-  --glass-dark: rgba(12, 4, 7, 0.85);
+  --glass: rgba(18, 6, 10, 0.5);
+  --glass-dark: rgba(12, 4, 7, 0.8);
   --accent-red: #d22323;
   --accent-red-soft: rgba(210, 35, 35, 0.2);
-  --blur-main: 12px;
+  --blur-main: 14px;
+  --radius: 12px;
 }
 
-/* ===================== CORE STRUCTURE (From Example) ===================== */
+/* ===================== NUCLEAR TRANSPARENCY ===================== */
+/* Targets every possible background container in both old and new Discord UIs */
 
-/* Main Background - Using the exact selector from Akame theme */
-.app_bd26cc, 
-.app__160d8 {
-    background-image: var(--bg) !important;
-    background-size: cover !important;
-    background-position: center !important;
-    background-attachment: fixed !important;
-}
-
-/* Base Transparency */
 #app-mount,
-.bg__160d8,
-.layer__160d8,
-.container_fb64c9,
-.main_bd26cc,
-.chat_bd26cc,
-.content_bd26cc,
-.pageWrapper_a3a4ce,
-.base_bd26cc,
-.sidebar_bd26cc,
-.guilds_bd26cc,
-.panels_bd26cc,
-.container__2637a,
-.chatContent_a7d3a1,
-.noChannel_bd26cc,
-.standardSidebarView_c25c6d,
-.contentRegion_c25c6d,
-.contentRegionScroller_c25c6d {
+[class*="app_"],
+[class*="bg_"],
+[class*="layer_"],
+[class*="layers_"],
+[class*="container_"],
+[class*="main_"],
+[class*="chat_"],
+[class*="content_"],
+[class*="pageWrapper_"],
+[class*="base_"],
+[class*="sidebar_"],
+[class*="guilds_"],
+[class*="panels_"],
+[class*="scroller_"],
+[class*="standardSidebarView_"],
+[class*="header_"],
+[class*="topBar_"],
+[class*="title_"],
+[class*="searchBar_"],
+[class*="threadSidebar_"],
+[class*="chatContent_"],
+[class*="messagesWrapper_"],
+[class*="members_"],
+[class*="membersWrap_"],
+[class*="nowPlayingColumn_"],
+[class*="userPanel_"],
+[class*="fullSize_"],
+[class*="popout_"],
+[class*="modal_"],
+[class*="visual-refresh"] {
     background: transparent !important;
     background-color: transparent !important;
 }
 
-/* Shade Overlay */
-.layers_bd26cc,
-.layers__160d8 {
-    background-color: rgba(0, 0, 0, 0.3) !important;
+/* Re-apply the background to the absolute root */
+#app-mount {
+    background-image: var(--bg) !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-attachment: fixed !important;
+    background-repeat: no-repeat !important;
 }
 
-/* ===================== LAYOUT GLASS ===================== */
+/* Global Overlay for Readability */
+[class*="app_"]::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    pointer-events: none;
+    z-index: -1;
+}
 
-/* Sidebar */
-.sidebar_bd26cc {
+/* ===================== VISUAL REFRESH GLASS ===================== */
+
+/* Sidebar (Channels) */
+[class*="sidebar_"] {
     background: var(--glass-dark) !important;
     backdrop-filter: blur(var(--blur-main)) !important;
-    margin: 10px 0 10px 10px;
-    border-radius: 12px 0 0 12px;
+    margin: 12px 0 12px 12px;
+    border-radius: var(--radius) 0 0 var(--radius);
+    border: 1px solid rgba(210, 35, 35, 0.1);
 }
 
-/* Chat Content */
-.chatContent_a7d3a1 {
+/* Chat Area */
+[class*="chatContent_"],
+[class*="messagesWrapper_"] {
     background: var(--glass) !important;
     backdrop-filter: blur(var(--blur-main)) !important;
-    margin: 10px 10px 10px 0;
-    border-radius: 0 12px 12px 0;
+    margin: 12px 12px 12px 0;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    border: 1px solid rgba(210, 35, 35, 0.1);
+    border-left: none;
 }
 
-/* Guilds List */
-.guilds_bd26cc {
+/* Guilds List (Left) */
+[class*="guilds_"] {
     background: rgba(0, 0, 0, 0.4) !important;
     backdrop-filter: blur(var(--blur-main)) !important;
+    margin-right: -4px;
 }
 
-/* Members List */
-.members_c8ffbb,
-.membersWrap_c8ffbb {
+/* Members List (Right) */
+[class*="members_"],
+[class*="membersWrap_"] {
     background: var(--glass-dark) !important;
     backdrop-filter: blur(var(--blur-main)) !important;
-    margin: 10px;
-    border-radius: 12px;
+    margin: 12px;
+    border-radius: var(--radius);
+    border: 1px solid rgba(210, 35, 35, 0.1);
 }
 
-/* ===================== HEADER & INPUT ===================== */
+/* ===================== INTERFACE ELEMENTS ===================== */
 
-/* Title Bar */
-.title_a7d3a1,
-.header_fd6364 {
+/* Header / Top Bar */
+[class*="title_"],
+[class*="header_"] {
     background: rgba(0, 0, 0, 0.2) !important;
     backdrop-filter: blur(10px) !important;
     border-bottom: 1px solid rgba(210, 35, 35, 0.1);
 }
 
-/* Chat Input Area */
-.channelTextArea_a7d3a1 {
+/* Chat Input */
+[class*="channelTextArea_"] {
     background: transparent !important;
 }
-.scrollableContainer_d0696b {
+[class*="scrollableContainer_"] {
     background: rgba(0, 0, 0, 0.4) !important;
     border: 1px solid rgba(210, 35, 35, 0.2);
-    border-radius: 12px;
+    border-radius: var(--radius);
 }
 
-/* ===================== ELEMENTS & ACCENTS ===================== */
-
-/* Hover & Selected States */
-.interactive_f5eb3b:hover,
-.modeSelected_d808b0 .link_d808b0 {
+/* Hover & Selection */
+[class*="interactive_"]:hover,
+[class*="selected_"] [class*="layout_"],
+[class*="modeSelected_"] [class*="link_"] {
     background: var(--accent-red-soft) !important;
     box-shadow: inset 4px 0 0 var(--accent-red);
-}
-
-/* Buttons */
-.lookFilled_dd4f85.colorBrand_dd4f85 {
-    background-color: var(--accent-red) !important;
-}
-
-/* User Profile Panel */
-.panels_bd26cc {
-    background: rgba(0, 0, 0, 0.2) !important;
-    border-top: 1px solid rgba(210, 35, 35, 0.1);
-}
-
-/* Typography */
-body, span, div {
-    font-family: 'Inter', sans-serif !important;
 }
 
 /* Scrollbars */
@@ -139,6 +146,8 @@ body, span, div {
     background: var(--accent-red-soft) !important;
     border-radius: 20px;
 }
-::-webkit-scrollbar-track {
-    background: transparent !important;
+
+/* Typography */
+body {
+    font-family: 'Inter', sans-serif !important;
 }
